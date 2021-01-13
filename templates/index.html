@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Provider</title>
+    <style>
+    body {
+    background:  #5F00BB  ;
+    padding: 10px;
+    background-repeat: no-repeat;
+	}
+	a{
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+    </style>
+</head>
+<body>
+    <div id="header" >
+
+        <h1 align="center"  style="color: #FFFFFF" >Главная страница<h1>
+    </div>
+    <h3 align="center"><a href = "{% url 'Price' %}" style="color: #FFFFFF" >Цены</a></h3>
+    <h3 align="center"><a href = "{% url 'Operator' %}" style="color: #FFFFFF" >Операторы</a></h3>
+    <h3 align="center"><a href = "{% url 'Receipt' %}" style="color: #FFFFFF" >Квитанции</a></h3>
+    <h3 align="center"><a href = "{% url 'Client' %}" style="color: #FFFFFF" >Клиенты</a></h3>
+    <h3 align="center"><a href="/admin/logout/" style="color: #FFFFFF" >Выйти из аккаунта</a></h3>
+
+</body>
+</html>
+
