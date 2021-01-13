@@ -2,13 +2,6 @@ from django.contrib import admin
 from .models import Price, Operator, Receipt, Client
 
 
-# admin.site.register(User)
-# admin.site.register(Animal)
-# admin.site.register(Reptile)
-# admin.site.register(Bird)
-# admin.site.register(Habitat_area)
-# admin.site.register(Feeding_ration)
-
 @admin.register(Price)
 class PriceAdmin(admin.ModelAdmin):
     list_display = ('Date', 'Cost_per_minute', 'Cost_per_minute_from_8pm_to_2am', 'Cost_per_minute_from_2am_to_6am')
