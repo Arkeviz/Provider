@@ -23,13 +23,13 @@ def index(request):
     return render(request, "index.html")
 
 
-def index_price(request):  # index_author
+def index_price(request):
     form_add = AddPrice()
     data = Price.objects.all()
     return render(request, "provider/Template_Price.html", {"form": form_add, "data_show": data})
 
 
-def index_operator(request):  # index_exhibition
+def index_operator(request):
     form_ex = AddOperator()
     data = Operator.objects.all()
     return render(request, "provider/Template_Operator.html", {"form": form_ex, "data_show": data})
