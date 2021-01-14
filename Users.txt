@@ -1,0 +1,8 @@
+Администратор
+Login: Lyoshka
+Password: ais351915_05
+E-mail: koposov@live.ru
+
+Пользователь1
+Login: mrUser1
+Password: testuser1
