@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Квитанции</title>
+    <title>Сеансы</title>
     <style>
         .myfield{
             border:1px solid #ccc;
@@ -54,9 +54,10 @@
 <body>
 <div id="header" >
         <h3 align="right"><a href="/admin/logout/">Выйти из аккаунта</a></h3>
-        <h1 align="center">Квитанции<h1>
+        <h1 align="center">Сеансы<h1>
         <h3 align="center"><a href = "{% url 'home' %}">Назад</a></h3>
 </div>
+
 <table align="center">
     <tr>
         <th align="center" width="50%">
@@ -65,63 +66,64 @@
         <table>
             {{ form }}
         </table>
-        <input class = "button" type="submit" value="Добавить квитанцию">
+        <input class = "button" type="submit" value="Добавить сеанс">
     </form>
     <br>
     <br>
     <form method="POST" action="del/">
         {% csrf_token %}
-        <label>Введите номер квитанции: </label>
+        <label>Введите id сеанса</label>
         <input class = "myfield" type= "number" name="delname"><br>
-        <input class = "button" type= "submit" value="Удалить квитанцию">
+        <input class = "button" type= "submit" value="Удалить сеанс">
     </form>
     <br>
     <br>
     <form method="POST" action="up/">
         {% csrf_token %}
-        <label>Введите номер квитанции: </label>
+        <label>Введите id сеанса</label>
         <input class = "myfield" type= "number" name="upname"><br>
         <table>
             {{ form }}
         </table>
-        <input class = "button" type= "submit" value="Изменить квитанцию">
+        <input class = "button" type= "submit" value="Изменить информанию о сеансе">
     </form>
 </table>
 
-    <tr>
         <th align="center" width="50%"></th>
-        <h1 align="center">Список квитанций</h1>
+        <h1 align="center"> Список сеансов</h1>
     <table align="center">
-
     <form method="POST" action="show/">
         {% csrf_token %}
         <table id='b' border=1 width="70%" align="center">
             <tr align="center" bgcolor="#388FFF">
-                <th>Id</th>
-                <th>Название орагнизаций</th>
-				<th>Адрес орагнизаций</th>
-                <th>Контактный номер</th>
-				<th>Количество минут</th>
-                <th>Итоговая сумма</th>
-                <th>Стоимость одной минуты</th>
+                <th>Id сеанса</th>
+                <th>Название организации</th>
+				<th>Номер организации</th>
+				<th>Контактный номер организации</th>
+                <th>Время начала соединения</th>
+                <th>Время окончания соединения</th>
+				<th>Кол-во минут</th>
+                <th>Стоимость</th>
 				<th>Номер оператора</th>
-
+				<th>ID стоимости одной минуты</th>
             </tr>
         {% for i in data_show %}
             <tr align="center" bgcolor="#388FFF">
                 <td>{{ i.id }}</td>
                 <td>{{ i.Organization_name }}</td>
-                <td>{{ i.Organization_address }}</td>
-				<td>{{ i.Organization_phone_number }}</td>
-                <td>{{ i.Number_of_minutes_of_session }}</td>
+				<td>{{ i.Organization_address }}</td>
+                <td>{{ i.Organization_phone_number }}</td>
+                <td>{{ i.Date_of_start_of_session }}</td>
+                <td>{{ i.Date_of_end_of_session }}</td>
+				<td>{{ i.Number_of_minutes_of_session }}</td>
                 <td>{{ i.Total_cost }}</td>
-				<td> <a href="{% url 'Price' %}"> {{ i.Cost_per_minute }}</td>
 				<td> <a href="{% url 'User' %}"> {{ i.Employee_ID }}</td>
+				<td> <a href="{% url 'Price' %}"> {{ i.Cost_per_minute }}</td>
             </tr>
         {% endfor %}
         </table>
     </form>
-    </tr>
 	</table>
 </body>
 </html>
+

@@ -1,18 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template.context_processors import csrf
-from django.views.generic import FormView
-from .models import Price, Operator, Receipt, Client
-from .forms import AddPrice, AddOperator, AddReceipt, AddClient
-from django.views import generic
+from .models import Price, User, Receipt, Session
+from .forms import AddPrice, AddUser, AddReceipt, AddSession
 from django.views import View
-from django.views.generic.base import TemplateView
-from django.views.generic import FormView
-from django.views.generic import CreateView
 from django.http import HttpResponseRedirect
-from django.http import HttpResponseNotFound
-
-from provider import forms
 
 
 def great(request):
@@ -23,16 +13,16 @@ def index(request):
     return render(request, "index.html")
 
 
-def index_price(request):  # index_author
+def index_price(request):
     form_add = AddPrice()
     data = Price.objects.all()
     return render(request, "provider/Template_Price.html", {"form": form_add, "data_show": data})
 
 
-def index_operator(request):  # index_exhibition
-    form_ex = AddOperator()
-    data = Operator.objects.all()
-    return render(request, "provider/Template_Operator.html", {"form": form_ex, "data_show": data})
+def index_user(request):
+    form_ex = AddUser()
+    data = User.objects.all()
+    return render(request, "provider/Template_User.html", {"form": form_ex, "data_show": data})
 
 
 def index_receipt(request):
@@ -41,10 +31,10 @@ def index_receipt(request):
     return render(request, "provider/Template_Receipt.html", {"form": form_er, "data_show": data})
 
 
-def index_client(request):
-    form_ca = AddClient()
-    data = Client.objects.all()
-    return render(request, "provider/Template_Client.html", {"form": form_ca, "data_show": data})
+def index_session(request):
+    form_ca = AddSession()
+    data = Session.objects.all()
+    return render(request, "provider/Template_Session.html", {"form": form_ca, "data_show": data})
 
 
 # Определение view
@@ -80,28 +70,34 @@ class view_price(View):
             return HttpResponseRedirect("/Price")
 
 
-class view_operator(View):
-    def add_operator(request):
+class view_user(View):
+    def add_user(request):
         if request.method == "POST":
-            operator = Operator()
-            operator.Fullname = request.POST.get("Fullname")
-            operator.save()
-            return HttpResponseRedirect("/Operator")
+            user = User()
+            user.id = request.POST.get("id")
+            user.Fullname = request.POST.get("Fullname")
+            user.Shift_number = request.POST.get("Shift_number")
+            user.Computer_IP = request.POST.get("Computer_IP")
+            user.save()
+            return HttpResponseRedirect("/User")
 
-    def del_operator(request):
+    def del_user(request):
         if request.method == "POST":
             q = request.POST.get("delname", "")
-            que = Operator.objects.get(id=q)
+            que = User.objects.get(id=q)
             que.delete()
-            return HttpResponseRedirect("/Operator")
+            return HttpResponseRedirect("/User")
 
-    def update_operator(request):
+    def update_user(request):
         if request.method == "POST":
             q = request.POST.get("upname", "")
-            que = Operator.objects.get(id=q)
+            que = User.objects.get(id=q)
+            que.id = request.POST.get("id")
             que.Fullname = request.POST.get("Fullname")
+            que.Shift_number = request.POST.get("Shift_number")
+            que.Computer_IP = request.POST.get("Computer_IP")
             que.save()
-            return HttpResponseRedirect("/Operator")
+            return HttpResponseRedirect("/User")
 
 
 class view_receipt(View):
@@ -114,7 +110,7 @@ class view_receipt(View):
             receipt.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
             receipt.Total_cost = request.POST.get("Total_cost")
             receipt.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            receipt.Employee_ID = Operator.objects.get(id=request.POST.get("Employee_ID"))
+            receipt.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
             receipt.save()
             return HttpResponseRedirect("/Receipt")
 
@@ -135,40 +131,47 @@ class view_receipt(View):
             que.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
             que.Total_cost = request.POST.get("Total_cost")
             que.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            que.Employee_ID = Operator.objects.get(id=request.POST.get("Employee_ID"))
+            que.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
             que.save()
             return HttpResponseRedirect("/Receipt")
 
 
-class view_client(View):
-    def add_client(request):
+class view_session(View):
+    def add_session(request):
         if request.method == "POST":
-            сlient = Client()
-            сlient.IP = request.POST.get("IP")
-            сlient.Date_of_start_of_session = request.POST.get("Date_of_start_of_session")
-            сlient.Date_of_end_of_session = request.POST.get("Date_of_end_of_session")
-            сlient.Shift_number = Receipt.objects.get(id=request.POST.get("Shift_number"))
-            сlient.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            сlient.Employee_ID = Operator.objects.get(id=request.POST.get("Employee_ID"))
-            сlient.save()
-            return HttpResponseRedirect("/Client")
+            session = Session()
+            session.Organization_name = request.POST.get("Organization_name")
+            session.Organization_address = request.POST.get("Organization_address")
+            session.Organization_phone_number = request.POST.get("Organization_phone_number")
+            session.Date_of_start_of_session = request.POST.get("Date_of_start_of_session")
+            session.Date_of_end_of_session = request.POST.get("Date_of_end_of_session")
+            session.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
+            session.Total_cost = request.POST.get("Total_cost")
+            session.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
+            session.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
 
-    def del_client(request):
+            session.save()
+            return HttpResponseRedirect("/Session")
+
+    def del_session(request):
         if request.method == "POST":
             q = request.POST.get("delname", "")
-            que = Client.objects.get(id=q)
+            que = Session.objects.get(id=q)
             que.delete()
-            return HttpResponseRedirect("/Client")
+            return HttpResponseRedirect("/Session")
 
-    def update_client(request):
+    def update_session(request):
         if request.method == "POST":
             q = request.POST.get("upname", "")
-            que = Client.objects.get(id=q)
-            que.IP = request.POST.get("IP")
+            que = Session.objects.get(id=q)
+            que.Organization_name = request.POST.get("Organization_name")
+            que.Organization_address = request.POST.get("Organization_address")
+            que.Organization_phone_number = request.POST.get("Organization_phone_number")
             que.Date_of_start_of_session = request.POST.get("Date_of_start_of_session")
             que.Date_of_end_of_session = request.POST.get("Date_of_end_of_session")
-            que.Shift_number = Receipt.objects.get(id=request.POST.get("Shift_number"))
+            que.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
+            que.Total_cost = request.POST.get("Total_cost")
+            que.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
             que.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            que.Employee_ID = Operator.objects.get(id=request.POST.get("Employee_ID"))
             que.save()
-            return HttpResponseRedirect("/Client")
+            return HttpResponseRedirect("/Session")
