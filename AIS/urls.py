@@ -18,7 +18,7 @@ urlpatterns = [
     path('Price/add/', views.view_price.add_price, name='add_price'),
     path("Price/del/", views.view_price.del_price, name="del_price"),
     path("Price/up/", views.view_price.update_price, name="update_price"),
-    # пути для оператора
+    # пути для пользователя
     path('User/add/', views.view_user.add_user, name='add_user'),
     path("User/del/", views.view_user.del_user, name="del_user"),
     path("User/up/", views.view_user.update_user, name="update_user"),
