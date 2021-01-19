@@ -9,17 +9,16 @@ class PriceAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class OperatorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'Fullname', 'Shift_number', 'Computer_IP')
+    list_display = ('id', 'Firstname', 'Lastname', 'Shift_number', 'Computer_IP')
 
 
 @admin.register(Receipt)
 class ReceiptAdmin(admin.ModelAdmin):
-    list_display = ('Organization_name', 'Organization_address', 'Organization_phone_number',
-                    'Number_of_minutes_of_session', 'Total_cost', 'Cost_per_minute', 'Employee_ID')
+    list_display = ('id', 'Session_id')
 
 
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('Organization_name', 'Organization_address', 'Organization_phone_number',
                     'Date_of_start_of_session', 'Date_of_end_of_session', 'Number_of_minutes_of_session', 'Total_cost',
-                    'Employee_ID', 'Cost_per_minute')
+                    'Employee_ID', 'Cost_per_minute', 'Receipt_id')

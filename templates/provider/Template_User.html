@@ -96,15 +96,17 @@
         {% csrf_token %}
         <table id='b' border=1 width="50%" align="center">
             <tr align="center" bgcolor="#388FFF">
-                <th>Id</th>
-                <th>ФИО пользователя</th>
+                <th>ID пользователя</th>
+                <th>Фамилия пользователя</th>
+				<th>Имя пользователя</th>
 				<th>Номер смены</th>
                 <th>IP компьютера</th>
             </tr>
         {% for i in data_show %}
             <tr align="center" bgcolor="#388FFF">
                 <td>{{ i.id }}</td>
-                <td>{{ i.Fullname }}</td>
+                <td>{{ i.Lastname }}</td>
+				<td>{{ i.Firstname }}</td>
 				<td>{{ i.Shift_number }}</td>
                 <td>{{ i.Computer_IP }}</td>
             </tr>

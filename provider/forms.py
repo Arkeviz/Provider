@@ -14,37 +14,23 @@ class AddPrice(forms.Form):
 class AddUser(forms.Form):
     id = forms.IntegerField(label="ID сотрудника",
                             widget=forms.NumberInput(attrs={"class": "myfield"}))
-    Fullname = forms.CharField(label="ФИО пользователя", widget=forms.TextInput(attrs={"class": "myfield"}))
+    Firstname = forms.CharField(label="Имя пользователя", widget=forms.TextInput(attrs={"class": "myfield"}))
+    Lastname = forms.CharField(label="Фамилия пользователя", widget=forms.TextInput(attrs={"class": "myfield"}))
     Shift_number = forms.IntegerField(label="Номер смены",
                                       widget=forms.NumberInput(attrs={"class": "myfield"}))
     Computer_IP = forms.CharField(label="IP компьютера", widget=forms.TextInput(attrs={"class": "myfield"}))
 
 
-class AddReceipt(forms.Form):
-    Organization_name = forms.CharField(label="Название организации",
-                                        widget=forms.TextInput(attrs={"class": "myfield"}))
-    Organization_address = forms.CharField(label="Номер организации",
-                                           widget=forms.TextInput(attrs={"class": "myfield"}))
-    Organization_phone_number = forms.CharField(label="Контактный номер организации",
-                                                widget=forms.TextInput(attrs={"class": "myfield"}))
-    Number_of_minutes_of_session = forms.IntegerField(label="Количество минут",
-                                                      widget=forms.NumberInput(attrs={"class": "myfield"}))
-    Total_cost = forms.IntegerField(label="Итоговая сумма", widget=forms.NumberInput(attrs={"class": "myfield"}))
-    Cost_per_minute = forms.IntegerField(label="ID стоимости одной минуты соединения",
-                                         widget=forms.NumberInput(attrs={"class": "myfield"}))
-    Employee_ID = forms.IntegerField(label="Номер оператора", widget=forms.NumberInput(attrs={"class": "myfield"}))
-
-
 class AddSession(forms.Form):
     Organization_name = forms.CharField(label="Название организации",
                                         widget=forms.TextInput(attrs={"class": "myfield"}))
-    Organization_address = forms.CharField(label="Номер организации",
+    Organization_address = forms.CharField(label="Адрес организации",
                                            widget=forms.TextInput(attrs={"class": "myfield"}))
     Organization_phone_number = forms.CharField(label="Контактный номер организации",
                                                 widget=forms.TextInput(attrs={"class": "myfield"}))
-    Date_of_start_of_session = forms.DateTimeField(label="время начала соединения",
+    Date_of_start_of_session = forms.DateTimeField(label="Время начала соединения",
                                                    widget=forms.DateTimeInput(attrs={"class": "myfield"}))
-    Date_of_end_of_session = forms.DateTimeField(label="время окончания соединения",
+    Date_of_end_of_session = forms.DateTimeField(label="Время окончания соединения",
                                                  widget=forms.DateTimeInput(attrs={"class": "myfield"}))
     Number_of_minutes_of_session = forms.IntegerField(label="Количество минут",
                                                       widget=forms.NumberInput(attrs={"class": "myfield"}))
@@ -53,3 +39,9 @@ class AddSession(forms.Form):
                                      widget=forms.NumberInput(attrs={"class": "myfield"}))
     Cost_per_minute = forms.CharField(label="ID стоимости одной минуты соединения",
                                       widget=forms.TextInput(attrs={"class": "myfield"}))
+    Receipt_id = forms.IntegerField(label="Номер квитанции", widget=forms.NumberInput(attrs={"class": "myfield"}))
+
+
+class AddReceipt(forms.Form):
+    id = forms.IntegerField(label="Номер квитанции", widget=forms.NumberInput(attrs={"class": "myfield"}))
+    Session_id = forms.IntegerField(label="Номер сеанса", widget=forms.NumberInput(attrs={"class": "myfield"}))

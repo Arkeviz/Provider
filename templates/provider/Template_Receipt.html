@@ -97,26 +97,14 @@
         {% csrf_token %}
         <table id='b' border=1 width="70%" align="center">
             <tr align="center" bgcolor="#388FFF">
-                <th>Id</th>
-                <th>Название орагнизаций</th>
-				<th>Адрес орагнизаций</th>
-                <th>Контактный номер</th>
-				<th>Количество минут</th>
-                <th>Итоговая сумма</th>
-                <th>Стоимость одной минуты</th>
-				<th>Номер оператора</th>
+                <th>Номер квитанции</th>
+				<th>ID сеанса</th>
 
             </tr>
         {% for i in data_show %}
             <tr align="center" bgcolor="#388FFF">
                 <td>{{ i.id }}</td>
-                <td>{{ i.Organization_name }}</td>
-                <td>{{ i.Organization_address }}</td>
-				<td>{{ i.Organization_phone_number }}</td>
-                <td>{{ i.Number_of_minutes_of_session }}</td>
-                <td>{{ i.Total_cost }}</td>
-				<td> <a href="{% url 'Price' %}"> {{ i.Cost_per_minute }}</td>
-				<td> <a href="{% url 'User' %}"> {{ i.Employee_ID }}</td>
+				<td> <a href="{% url 'Session' %}"> {{ i.Session_id }}</td>
             </tr>
         {% endfor %}
         </table>

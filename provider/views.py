@@ -75,7 +75,8 @@ class view_user(View):
         if request.method == "POST":
             user = User()
             user.id = request.POST.get("id")
-            user.Fullname = request.POST.get("Fullname")
+            user.Firstname = request.POST.get("Firstname")
+            user.Lastname = request.POST.get("Lastname")
             user.Shift_number = request.POST.get("Shift_number")
             user.Computer_IP = request.POST.get("Computer_IP")
             user.save()
@@ -93,47 +94,12 @@ class view_user(View):
             q = request.POST.get("upname", "")
             que = User.objects.get(id=q)
             que.id = request.POST.get("id")
-            que.Fullname = request.POST.get("Fullname")
+            que.Firstname = request.POST.get("Firstname")
+            que.Lastname = request.POST.get("Lastname")
             que.Shift_number = request.POST.get("Shift_number")
             que.Computer_IP = request.POST.get("Computer_IP")
             que.save()
             return HttpResponseRedirect("/User")
-
-
-class view_receipt(View):
-    def add_receipt(request):
-        if request.method == "POST":
-            receipt = Receipt()
-            receipt.Organization_name = request.POST.get("Organization_name")
-            receipt.Organization_address = request.POST.get("Organization_address")
-            receipt.Organization_phone_number = request.POST.get("Organization_phone_number")
-            receipt.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
-            receipt.Total_cost = request.POST.get("Total_cost")
-            receipt.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            receipt.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
-            receipt.save()
-            return HttpResponseRedirect("/Receipt")
-
-    def del_receipt(request):
-        if request.method == "POST":
-            q = request.POST.get("delname", "")
-            que = Receipt.objects.get(id=q)
-            que.delete()
-            return HttpResponseRedirect("/Receipt")
-
-    def update_receipt(request):
-        if request.method == "POST":
-            q = request.POST.get("upname", "")
-            que = Receipt.objects.get(id=q)
-            que.Organization_name = request.POST.get("Organization_name")
-            que.Organization_address = request.POST.get("Organization_address")
-            que.Organization_phone_number = request.POST.get("Organization_phone_number")
-            que.Number_of_minutes_of_session = request.POST.get("Number_of_minutes_of_session")
-            que.Total_cost = request.POST.get("Total_cost")
-            que.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-            que.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
-            que.save()
-            return HttpResponseRedirect("/Receipt")
 
 
 class view_session(View):
@@ -149,7 +115,7 @@ class view_session(View):
             session.Total_cost = request.POST.get("Total_cost")
             session.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
             session.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
-
+            session.Receipt_id = request.POST.get("Receipt_id")
             session.save()
             return HttpResponseRedirect("/Session")
 
@@ -173,5 +139,32 @@ class view_session(View):
             que.Total_cost = request.POST.get("Total_cost")
             que.Employee_ID = User.objects.get(id=request.POST.get("Employee_ID"))
             que.Cost_per_minute = Price.objects.get(id=request.POST.get("Cost_per_minute"))
+            que.Receipt_id = request.POST.get("Receipt_id")
             que.save()
             return HttpResponseRedirect("/Session")
+
+
+class view_receipt(View):
+    def add_receipt(request):
+        if request.method == "POST":
+            receipt = Receipt()
+            receipt.id = request.POST.get("id")
+            receipt.Session_id = Session.objects.get(id=request.POST.get("Session_id"))
+            receipt.save()
+            return HttpResponseRedirect("/Receipt")
+
+    def del_receipt(request):
+        if request.method == "POST":
+            q = request.POST.get("delname", "")
+            que = Receipt.objects.get(id=q)
+            que.delete()
+            return HttpResponseRedirect("/Receipt")
+
+    def update_receipt(request):
+        if request.method == "POST":
+            q = request.POST.get("upname", "")
+            que = Receipt.objects.get(id=q)
+            que.id = request.POST.get("id")
+            que.Session_id = Session.objects.get(id=request.POST.get("Session_id"))
+            que.save()
+            return HttpResponseRedirect("/Receipt")
